@@ -40,7 +40,10 @@ export default function App() {
   return (
     <div className="container">
       <header className="header">
-        <h1>SurplusLink</h1>
+        <div>
+          <h1>SurplusLink</h1>
+          <p className="tagline">Rescuing surplus restaurant food, one pickup at a time</p>
+        </div>
         <ClockControl now={now} onChange={handleClockChange} />
       </header>
 

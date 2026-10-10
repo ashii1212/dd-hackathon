@@ -29,7 +29,7 @@ export default function Dashboard({ refreshKey }) {
       <h2>Dashboard</h2>
       <div className="stats">
         {FIGURES.map(([key, label]) => (
-          <div key={key} className="card stat">
+          <div key={key} className={`card stat stat-${key}`}>
             <div className="muted">{label}</div>
             <div className="stat-value">{totals[key]} kg</div>
           </div>
