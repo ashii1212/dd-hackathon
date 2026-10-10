@@ -78,10 +78,10 @@ public class DonationService {
 
     @Transactional
     public DonationResponse cancel(String donorId, String donationId) {
+        LocalDateTime now = clockService.lockAndGetNow();
         Donation donation = donationRepository.findByIdForUpdate(donationId)
                 .filter(d -> d.getDonor().getId().equals(donorId))
                 .orElseThrow(() -> new ResourceNotFoundException("Donation not found: " + donationId));
-        LocalDateTime now = clockService.now();
 
         List<String> violations = new ArrayList<>();
         DonationStatus status = donation.statusAt(now);

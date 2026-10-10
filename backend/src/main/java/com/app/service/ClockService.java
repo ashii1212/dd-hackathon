@@ -31,9 +31,13 @@ public class ClockService {
     }
 
     @Transactional
+    public LocalDateTime lockAndGetNow() {
+        return lockClock().getTime();
+    }
+
+    @Transactional
     public LocalDateTime moveTo(LocalDateTime newTime) {
-        AppClock clock = clockRepository.findByIdForUpdate(AppClock.SINGLETON_ID)
-                .orElseThrow(() -> new IllegalStateException("Clock is not initialised"));
+        AppClock clock = lockClock();
 
         if (newTime.isBefore(clock.getTime())) {
             throw new RuleViolationException("The clock cannot move backwards");
@@ -44,5 +48,10 @@ public class ClockService {
         missed.forEach(claim -> claim.setStatus(ClaimStatus.MISSED));
 
         return clock.getTime();
+    }
+
+    private AppClock lockClock() {
+        return clockRepository.findByIdForUpdate(AppClock.SINGLETON_ID)
+                .orElseThrow(() -> new IllegalStateException("Clock is not initialised"));
     }
 }
