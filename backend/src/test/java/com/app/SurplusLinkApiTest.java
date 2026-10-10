@@ -158,6 +158,12 @@ class SurplusLinkApiTest {
     }
 
     @Test
+    void wrongHttpMethodReturns405() throws Exception {
+        mockMvc.perform(get("/api/donations/DN1/claims"))
+                .andExpect(status().isMethodNotAllowed());
+    }
+
+    @Test
     void rejectsDonationWithInvalidWindow() throws Exception {
         String body = "{\"description\":\"Soup\",\"quantityKg\":5,"
                 + "\"pickupFrom\":\"2026-03-10T11:00\",\"pickupUntil\":\"2026-03-10T10:00\"}";
