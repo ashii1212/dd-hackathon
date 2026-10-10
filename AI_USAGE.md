@@ -1,38 +1,26 @@
-# AI Usage
+## AI Usage
 
-I used **Claude Code** as a coding assistant. I directed the work: I chose the stack, worked out the requirements
-and assumptions from the problem statement, approved the design before implementation, and reviewed, tested and
-committed each change in small steps. Claude Code drafted most of the code; I accepted, changed or rejected each part.
+I used Claude Code, ChatGPT, and Google Gemini as assistants while developing SurplusLink. I used them to understand technical concepts, explore solutions, generate code, and fix errors during development.
 
-## My decisions
+I decided the project requirements, selected the technology stack, and planned the implementation based on the hackathon problem statement. I worked on the project step by step, starting with the backend, followed by the frontend, testing, and deployment.
 
-- **Stack:** React, Spring Boot and MySQL, deployed on Vercel, Render and Aiven (hosting set up by me).
-- **Scope:** build only what the statement asks; no login, no extra features.
-- **Design approval:** data model, API shape and the README assumptions were reviewed and approved by me before coding.
-- **Work order:** backend first (model, clock, donations, claims, dashboard), then frontend, tests and documentation.
-- **Repository style:** small commits with clear messages, no unnecessary comments, no extra files.
-- **UI:** I asked for a more colourful, professional design.
+### How I Used AI
 
-## Where AI helped
+- **Claude Code:** Helped write and update backend and frontend code, implement business rules, and fix bugs.
+- **ChatGPT:** Helped me plan the project, understand the requirements, discuss the database design, and troubleshoot technical issues.
+- **Google Gemini:** Helped me understand concepts and explore solutions to development problems.
 
-- Drafting the JPA entities, services and REST controllers.
-- Implementing the seven claim rules so that every violated rule is reported.
-- Suggesting database row locks to stop two volunteers over-booking the last kilograms.
-- Drafting the React components, the dashboard calculation and the automated tests.
-- Diagnosing a deployment failure (see below).
+### Decisions I Made
 
-## What I changed or rejected
+- Selected React, Spring Boot, and MySQL for the project.
+- Kept the features limited to the requirements of the problem statement.
+- Decided how donations, claims, pickup timings, and capacity validation should work.
+- Reviewed the proposed implementations and requested changes whenever they did not match my requirements.
+- Made sure the application uses a simulated clock instead of the real system time.
+- Worked on deployment and resolved issues encountered during testing.
 
-1. **Removed the starter's example code** so the repository only contains what the task needs.
-2. **Rejected extra files** that were suggested (Windows run scripts, example config files).
-3. **No real system time.** The starter's error handler added a `timestamp` from the system clock; it was removed because the statement forbids using real time.
-4. **Strict number parsing.** By default `2.5` would be rounded to `2`. It is now rejected as invalid input, separate from rule violations.
-5. **Deployment fix.** The deployed backend returned 502 although it worked locally. The cause was that Aiven MySQL requires a primary key on every table and the volunteer zones table had none; making the zone column non-null fixed it.
-6. **Unknown URLs** returned 500; they now return 404.
+### Testing
 
-## How the code was verified
+I tested the application by running the backend and frontend, checking API responses, and trying the donor, volunteer, and dashboard workflows. I also ran the backend tests and frontend build to check for errors.
 
-- `mvn test`: 14 tests passing (claim rules, invalid input, collect and cancel timing, MISSED claims, dashboard balance, two simultaneous claims).
-- Every rule and error case checked against the running API.
-- Every flow checked in the browser as donor, volunteer and on the dashboard.
-- `npm run build`: no errors.
+AI helped me speed up coding and problem-solving, but I directed the development process and made the final decisions about the application's requirements and implementation.
