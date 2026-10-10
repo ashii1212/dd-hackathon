@@ -1,5 +1,12 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
+export class ApiError extends Error {
+  constructor(message, details) {
+    super(message);
+    this.details = details;
+  }
+}
+
 export async function request(path, { method = 'GET', body } = {}) {
   const res = await fetch(`${API_BASE_URL}${path}`, {
     method,
@@ -11,10 +18,8 @@ export async function request(path, { method = 'GET', body } = {}) {
 
   const data = await res.json().catch(() => null);
   if (!res.ok) {
-    const message = data?.fieldErrors
-      ? Object.values(data.fieldErrors).join(', ')
-      : data?.message || `Request failed (${res.status})`;
-    throw new Error(message);
+    const details = data?.violations || (data?.fieldErrors ? Object.values(data.fieldErrors) : []);
+    throw new ApiError(data?.message || `Request failed (${res.status})`, details);
   }
   return data;
 }
