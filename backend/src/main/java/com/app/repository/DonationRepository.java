@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +19,7 @@ public interface DonationRepository extends JpaRepository<Donation, String> {
 
     List<Donation> findByDonorIdOrderByPickupFromAsc(String donorId);
 
-    List<Donation> findByDonorZoneInOrderByPickupFromAsc(Iterable<String> zones);
+    List<Donation> findByDonorZoneInOrderByPickupFromAsc(Collection<String> zones);
 
     List<Donation> findAllByOrderByIdAsc();
 }
