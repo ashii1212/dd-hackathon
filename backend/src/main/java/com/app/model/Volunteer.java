@@ -28,7 +28,7 @@ public class Volunteer {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "volunteer_zones", joinColumns = @JoinColumn(name = "volunteer_id"))
-    @Column(name = "zone", length = 50)
+    @Column(name = "zone", nullable = false, length = 50)
     private Set<String> zones = new HashSet<>();
 
     protected Volunteer() {
